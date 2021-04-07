@@ -37,6 +37,10 @@ namespace LabourZillaZoneee
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+            
+            services.AddDbContext<LabourZillaZoneContext>(options =>
+                 options.UseSqlServer(Configuration.GetConnectionString("LabourConst")));
+
             services.AddRazorPages();
         }
 

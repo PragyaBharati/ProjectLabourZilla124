@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LabourZillaZoneee.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 using Microsoft.AspNetCore.Authorization;
 
 namespace LabourZillaZoneee.Controllers
@@ -13,10 +15,12 @@ namespace LabourZillaZoneee.Controllers
     public class LaboursController : Controller
     {
         private readonly LabourZillaZoneContext _context;
+        private readonly IWebHostEnvironment _hostEnviroment;
 
-        public LaboursController(LabourZillaZoneContext context)
+        public LaboursController(LabourZillaZoneContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _hostEnviroment = hostEnvironment;
         }
 
         // GET: Labours
@@ -54,10 +58,18 @@ namespace LabourZillaZoneee.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Pswd,Cnfrmpswd,Profession,CityAddress,StateL,DailyWages,TimeDate,Available,Lcontact,Ppic,RoleL")] Labour labour)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Pswd,Cnfrmpswd,Profession,CityAddress,StateL,DailyWages,TimeDate,Available,Lcontact,Ppic,PPicFile,RoleL")] Labour labour)
         {
             if (ModelState.IsValid)
             {
+                string rootPath = _hostEnviroment.WebRootPath;
+                string fileName = Path.GetFileName(labour.PPicFile.FileName);
+
+                string pPath = Path.Combine(rootPath + "/Images/", fileName);
+                labour.Ppic = fileName;
+                var filStream = new FileStream(pPath, FileMode.Create);
+                await labour.PPicFile.CopyToAsync(filStream);
+                filStream.Close();
                 _context.Add(labour);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

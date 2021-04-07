@@ -9,22 +9,22 @@ using LabourZillaZoneee.Models;
 
 namespace LabourZillaZoneee.Controllers
 {
-    public class Labours1Controller : Controller
+    public class UsersController : Controller
     {
         private readonly LabourZillaZoneContext _context;
 
-        public Labours1Controller(LabourZillaZoneContext context)
+        public UsersController(LabourZillaZoneContext context)
         {
             _context = context;
         }
 
-        // GET: Labours1
+        // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Labours.ToListAsync());
+            return View(await _context.Users.ToListAsync());
         }
 
-        // GET: Labours1/Details/5
+        // GET: Users/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace LabourZillaZoneee.Controllers
                 return NotFound();
             }
 
-            var labour = await _context.Labours
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (labour == null)
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.UserId == id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(labour);
+            return View(user);
         }
 
-        // GET: Labours1/Create
+        // GET: Users/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Labours1/Create
+        // POST: Users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Pswd,Cnfrmpswd,Profession,CityAddress,StateL,DailyWages,TimeDate,Available,Lcontact,RoleL,Ppic")] Labour labour)
+        public async Task<IActionResult> Create([Bind("UserId,FirstName,LastName,CityAddress,StateC,Lcontact,PasswordC,ConfirmPassword,RoleU")] User user)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(labour);
+                _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(labour);
+            return View(user);
         }
 
-        // GET: Labours1/Edit/5
+        // GET: Users/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace LabourZillaZoneee.Controllers
                 return NotFound();
             }
 
-            var labour = await _context.Labours.FindAsync(id);
-            if (labour == null)
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
-            return View(labour);
+            return View(user);
         }
 
-        // POST: Labours1/Edit/5
+        // POST: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName,Pswd,Cnfrmpswd,Profession,CityAddress,StateL,DailyWages,TimeDate,Available,Lcontact,Ppic,RoleL")] Labour labour)
+        public async Task<IActionResult> Edit(string id, [Bind("UserId,FirstName,LastName,CityAddress,StateC,Lcontact,PasswordC,ConfirmPassword,RoleU")] User user)
         {
-            if (id != labour.Id)
+            if (id != user.UserId)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace LabourZillaZoneee.Controllers
             {
                 try
                 {
-                    _context.Update(labour);
+                    _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LabourExists(labour.Id))
+                    if (!UserExists(user.UserId))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace LabourZillaZoneee.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(labour);
+            return View(user);
         }
 
-        // GET: Labours1/Delete/5
+        // GET: Users/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace LabourZillaZoneee.Controllers
                 return NotFound();
             }
 
-            var labour = await _context.Labours
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (labour == null)
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.UserId == id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(labour);
+            return View(user);
         }
 
-        // POST: Labours1/Delete/5
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var labour = await _context.Labours.FindAsync(id);
-            _context.Labours.Remove(labour);
+            var user = await _context.Users.FindAsync(id);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LabourExists(string id)
+        private bool UserExists(string id)
         {
-            return _context.Labours.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.UserId == id);
         }
     }
 }

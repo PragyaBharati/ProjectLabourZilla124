@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -20,6 +22,9 @@ namespace LabourZillaZoneee.Models
         public string Available { get; set; }
         public string Lcontact { get; set; }
         public string Ppic { get; set; }
+       
         public string RoleL { get; set; }
+        [NotMapped]
+        public IFormFile PPicFile { get; set; }
     }
 }
