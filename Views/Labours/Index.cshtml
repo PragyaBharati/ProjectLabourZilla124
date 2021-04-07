@@ -50,12 +50,12 @@
                 @Html.DisplayNameFor(model => model.Ppic)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoleL)
-            </th>
-            <th>
                 Profile Pic
             </th>
-            
+
+            <th>
+                @Html.DisplayNameFor(model => model.RoleL)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -100,11 +100,12 @@
                 @Html.DisplayFor(modelItem => item.Ppic)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RoleL)
-            </td>
-            <td>
                 <img src="@("/Images/"+item.Ppic)" width="200" height="200" />
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleL)
+            </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

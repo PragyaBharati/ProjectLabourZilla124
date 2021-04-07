@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LabourZillaZoneee.Controllers
 {
+    
     public class LaboursController : Controller
     {
         private readonly LabourZillaZoneContext _context;
@@ -28,7 +29,7 @@ namespace LabourZillaZoneee.Controllers
         {
             return View(await _context.Labours.ToListAsync());
         }
-
+        
         // GET: Labours/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -63,14 +64,13 @@ namespace LabourZillaZoneee.Controllers
             if (ModelState.IsValid)
             {
                 string rootPath = _hostEnviroment.WebRootPath;
-                string fileName = Path.GetFileName(labour.PPicFile.FileName);
+                string fileName = Path.GetFileName(labour.PPicFile.FileName) ;
 
                 string pPath = Path.Combine(rootPath + "/Images/", fileName);
                 labour.Ppic = fileName;
                 var filStream = new FileStream(pPath, FileMode.Create);
                 await labour.PPicFile.CopyToAsync(filStream);
                 filStream.Close();
-
                 _context.Add(labour);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
