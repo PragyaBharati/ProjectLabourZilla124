@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LabourZillaZoneee.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LabourZillaZoneee.Controllers
 {
@@ -41,7 +42,7 @@ namespace LabourZillaZoneee.Controllers
 
             return View(admin);
         }
-
+        [Authorize]
         // GET: Admins/Create
         public IActionResult Create()
         {

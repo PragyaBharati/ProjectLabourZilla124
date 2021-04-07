@@ -11,7 +11,8 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
+        <tr style="background-color: teal">
+
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
@@ -51,12 +52,17 @@
             <th>
                 @Html.DisplayNameFor(model => model.RoleL)
             </th>
+            <th>
+                Profile Pic
+            </th>
+            
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+        @foreach (var item in Model)
+        {
+        <tr style="background-color: lightblue">
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
@@ -97,11 +103,14 @@
                 @Html.DisplayFor(modelItem => item.RoleL)
             </td>
             <td>
+                <img src="@("/Images/"+item.Ppic)" width="200" height="200" />
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

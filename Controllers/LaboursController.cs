@@ -70,6 +70,7 @@ namespace LabourZillaZoneee.Controllers
                 var filStream = new FileStream(pPath, FileMode.Create);
                 await labour.PPicFile.CopyToAsync(filStream);
                 filStream.Close();
+
                 _context.Add(labour);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
