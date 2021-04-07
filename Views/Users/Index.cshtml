@@ -37,6 +37,7 @@
                 @Html.DisplayNameFor(model => model.RoleU)
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -67,9 +68,9 @@
                 @Html.DisplayFor(modelItem => item.RoleU)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UserId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UserId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.UserId"><button>Edit</button></a> |
+                <a asp-action="Details" asp-route-id="@item.UserId"><button>Details</button></a> |
+               
             </td>
         </tr>
 }
